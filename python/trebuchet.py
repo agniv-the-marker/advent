@@ -33,12 +33,13 @@ def get_first_and_last_digit(sequence, alpha = True):
                     break
     return int(first_digit + last_digit)
 
-calibrations = 0
-alpha_calibs = 0
+if __name__ == "__main__":
+    calibrations = 0
+    alpha_calibs = 0
 
-with open("../input/trebuchet.txt") as f:
-    for line in f:
-        calibrations += get_first_and_last_digit(line.strip(), False)
-        alpha_calibs += get_first_and_last_digit(line.strip(), True)
+    with open("../input/trebuchet.txt") as f:
+        for line in f:
+            calibrations += get_first_and_last_digit(line.strip(), False)
+            alpha_calibs += get_first_and_last_digit(line.strip(), True)
 
-print(f'task 1: {calibrations}\ntask 2: {alpha_calibs}')
+    print(f'task 1: {calibrations}\ntask 2: {alpha_calibs}')

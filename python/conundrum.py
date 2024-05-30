@@ -30,12 +30,13 @@ def valid_game(description, power = False):
         return max_red * max_green * max_blue
     return ID
 
-valid_sum = 0
-power_sum = 0
+if __name__ == "__main__":
+    valid_sum = 0
+    power_sum = 0
 
-with open('../input/conundrum.txt') as f:
-    for line in f:
-        valid_sum += valid_game(line, False)
-        power_sum += valid_game(line, True)
+    with open('../input/conundrum.txt') as f:
+        for line in f:
+            valid_sum += valid_game(line, False)
+            power_sum += valid_game(line, True)
 
-print(f'task 1: {valid_sum}\ntask 2: {power_sum}')
+    print(f'task 1: {valid_sum}\ntask 2: {power_sum}')
