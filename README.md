@@ -1,6 +1,6 @@
 # Basic Review
 
-I'm helping teach a friend how to code, and thought I would redo a bunch of python/rust solutions for these along the way. Teaching him the basics of python/vscode/git!
+I'm helping teach a friend how to code, and thought I would redo a bunch of python/rust solutions for [these](https://adventofcode.com/) along the way. Teaching him the basics of python/vscode/git!
 
 ## Qualms
 
