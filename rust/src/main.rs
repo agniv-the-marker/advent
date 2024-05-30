@@ -1,5 +1,6 @@
 mod trebuchet;
 mod conundrum;
+mod gear;
 
 const INPUT_DIRECTORY: &str = "../input/";
 
@@ -12,5 +13,11 @@ fn main() {
     println!("Solving conundrum");
     conundrum::solve(INPUT_DIRECTORY, "conundrum.txt", false).unwrap();
     conundrum::solve(INPUT_DIRECTORY, "conundrum.txt", true).unwrap();
+    println!();
+
+    // Shift to make task 1 / task 2 run alongside each other for a single pass. More readable?
+
+    println!("Solving gear ratios");
+    gear::solve(INPUT_DIRECTORY, "gear.txt").unwrap();
     // println!();
 }
