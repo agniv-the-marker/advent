@@ -105,7 +105,8 @@ mod tests {
             ".664.598..".to_string(),
         ];
 
-        let (parts, _) = process_board(&board);
+        let data = process_board(&board);
+        let parts = data.parts;
 
         // Test parts
         assert_eq!(parts.len(), 8);
@@ -134,7 +135,8 @@ mod tests {
             ".664.598..".to_string(),
         ];
 
-        let (_, ratios) = process_board(&board);
+        let data = process_board(&board);
+        let ratios = data.ratios;
 
         // Test ratios
         assert_eq!(ratios.len(), 2);
