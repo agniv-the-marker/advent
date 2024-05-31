@@ -1,6 +1,42 @@
+"""
+https://adventofcode.com/2023/day/3
+"""
+
 from collections import defaultdict as ddict
 
-def find_parts(board, gears = True):
+def find_parts(board, gears=True):
+    """
+    Finds and returns the parts and gear ratios in a given board.
+
+    Args:
+        board (list): A list of strings representing the board.
+        gears (bool, optional): Specifies whether to include gear ratios. 
+            Defaults to True.
+
+    Returns:
+        dict: A dictionary containing the parts and gear ratios.
+            If gears is False, returns a dictionary of parts where the keys are 
+            the coordinates (x, y) and the values are the part numbers.
+            If gears is True, returns a dictionary of gear ratios where the keys 
+            are the coordinates (x, y) and the values are lists of adjacent gear 
+            numbers.
+
+    Example:
+        board = [
+            ".....",
+            ".123.",
+            ".4*5.",
+            ".678.",
+            "....."
+        ]
+        parts = find_parts(board, gears=False)
+        print(parts)
+        # Output: {(1, 1): 123, (2, 1): 4, (2, 2): 5, (2, 3): 678}
+
+        ratios = find_parts(board, gears=True)
+        print(ratios)
+        # Output: {}
+    """
     board = ["." + line.strip() + "." for line in board]
     board = ["." * len(board[0])] + board + ["." * len(board[0])]
     parts = ddict(int) # (x, y) -> part number
@@ -31,15 +67,13 @@ def find_parts(board, gears = True):
     return {k: v for k, v in ratios.items() if len(v) == 2}
 
 if __name__ == "__main__":
-    part_sum = 0
-    gear_sum = 0
+    PART_SUM = 0
+    GEAR_SUM = 0
 
-    with open("../input/gear.txt") as f:
-        board = f.readlines()
-        parts  = find_parts(board, False)
-        ratios = find_parts(board, True)
-        part_sum = sum(parts.values())
-        gear_sum = sum([v[0] * v[1] for _, v in ratios.items()])
+    with open("../input/gear.txt", encoding='utf-8') as f:
+        data = f.readlines()
+        PART_SUM = sum(find_parts(data, False).values())
+        GEAR_SUM = sum([v[0] * v[1] for _, v in find_parts(data, True).items()])
 
-    print(f'task 1: {part_sum}')
-    print(f'task 2: {gear_sum}')
+    print(f'task 1: {PART_SUM}')
+    print(f'task 2: {GEAR_SUM}')

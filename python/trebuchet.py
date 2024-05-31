@@ -1,8 +1,26 @@
-def get_first_and_last_digit(sequence, alpha = True):
+"""
+https://adventofcode.com/2023/day/1
+"""
 
-    # alpha for first / second task
+def get_first_and_last_digit(sequence, alpha=False):
+    """
+    Returns the first and last digit of a given sequence.
 
-    sequence += " " * 4 # pad out
+    Args:
+        sequence (str): The input sequence.
+        alpha (bool, optional): Specifies whether to consider alphabetic characters as digits. 
+                                Defaults to False.
+
+    Returns:
+        int: The first and last digit of the sequence.
+
+    Example:
+        >>> get_first_and_last_digit("abc123def")
+        13
+        >>> get_first_and_last_digit("two123def", alpha=True)
+        23
+    """
+    sequence += " " * 4  # pad out
 
     digit_mapping = {
         "zero": "0",
@@ -25,21 +43,21 @@ def get_first_and_last_digit(sequence, alpha = True):
                 first_digit = char
             last_digit = char
         elif char.isalpha() and alpha:
-            for key in digit_mapping:
-                if char == key[0] and sequence[i:i+len(key)] == key:
+            for key, value in digit_mapping.items():
+                if char == key[0] and sequence[i:i + len(key)] == key:
                     if first_digit is None:
-                        first_digit = digit_mapping[key]
-                    last_digit = digit_mapping[key]
+                        first_digit = value
+                    last_digit = value
                     break
     return int(first_digit + last_digit)
 
 if __name__ == "__main__":
-    calibrations = 0
-    alpha_calibs = 0
+    CALIB = 0
+    ALPHA = 0
 
-    with open("../input/trebuchet.txt") as f:
+    with open("../input/trebuchet.txt", encoding='utf-8') as f:
         for line in f:
-            calibrations += get_first_and_last_digit(line.strip(), False)
-            alpha_calibs += get_first_and_last_digit(line.strip(), True)
+            CALIB += get_first_and_last_digit(line.strip(), False)
+            ALPHA += get_first_and_last_digit(line.strip(), True)
 
-    print(f'task 1: {calibrations}\ntask 2: {alpha_calibs}')
+    print(f'task 1: {CALIB}\ntask 2: {ALPHA}')
