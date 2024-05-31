@@ -41,7 +41,7 @@ fn get_first_and_last_digit(sequence: &str, alpha: bool) -> i32 {
     }
 
     let result = format!("{}{}", first_digit.unwrap(), last_digit.unwrap());
-    return result.parse::<i32>().unwrap();
+    result.parse::<i32>().unwrap()
 }
 
 pub fn solve(input_directory: &str, file_name: &str, alpha: bool) -> io::Result<()> {
@@ -52,7 +52,7 @@ pub fn solve(input_directory: &str, file_name: &str, alpha: bool) -> io::Result<
 
     for line in io::BufReader::new(file).lines() {
         let line = line?;
-        calibrations += get_first_and_last_digit(&line.trim(), alpha);
+        calibrations += get_first_and_last_digit(line.trim(), alpha);
     }
 
     if alpha {

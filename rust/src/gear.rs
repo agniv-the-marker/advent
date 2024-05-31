@@ -2,7 +2,12 @@ use std::collections::HashMap;
 use std::fs::File;
 use std::io::{self, BufRead};
 
-fn find_parts(board: &Vec<String>) -> (HashMap<(usize, usize), Vec<i32>>, HashMap<(usize, usize), Vec<i32>>) {
+struct Gear {
+    parts: HashMap<(usize, usize), Vec<i32>>,
+    ratios: HashMap<(usize, usize), Vec<i32>>,
+}
+
+fn process_board(board: &[String]) -> Gear {
     // Would benefit from using multiple functions.
 
     // Add padding to the board to make it easier to iterate over the board.
@@ -38,7 +43,7 @@ fn find_parts(board: &Vec<String>) -> (HashMap<(usize, usize), Vec<i32>>, HashMa
                             parts.insert((i - 1, j - 1), number);
                         }
                         if char == '*' {
-                            ratios.entry((part_x - 1, part_y - 1)).or_insert(Vec::new()).push(number);
+                            ratios.entry((part_x - 1, part_y - 1)).or_default().push(number);
                         }
                     }
                 }
@@ -50,7 +55,10 @@ fn find_parts(board: &Vec<String>) -> (HashMap<(usize, usize), Vec<i32>>, HashMa
         }
     }
 
-    (parts.into_iter().map(|(k, v)| (k, vec![v])).collect(), ratios.into_iter().filter(|(_, v)| v.len() == 2).collect())
+    Gear {
+        parts: parts.into_iter().map(|(k, v)| (k, vec![v])).collect(),
+        ratios: ratios.into_iter().filter(|(_, v)| v.len() == 2).collect(),
+    }
 }
 
 pub fn solve(input_directory: &str, file_name: &str) -> io::Result<()> {
@@ -64,12 +72,10 @@ pub fn solve(input_directory: &str, file_name: &str) -> io::Result<()> {
         board.push(line);
     }
 
-    let data = find_parts(&board);
-    let parts = data.0;
-    let ratios = data.1;
+    let data = process_board(&board);
 
-    let part_sum: i32 = parts.values().flatten().sum();
-    let gear_sum: i32 = ratios.values().map(|v| v[0] * v[1]).sum();
+    let part_sum: i32 = data.parts.values().flatten().sum();
+    let gear_sum: i32 = data.ratios.values().map(|v| v[0] * v[1]).sum();
 
     println!("task 1: {}", part_sum);
     println!("task 2: {}", gear_sum);
@@ -99,7 +105,7 @@ mod tests {
             ".664.598..".to_string(),
         ];
 
-        let (parts, _) = find_parts(&board);
+        let (parts, _) = process_board(&board);
 
         // Test parts
         assert_eq!(parts.len(), 8);
@@ -128,7 +134,7 @@ mod tests {
             ".664.598..".to_string(),
         ];
 
-        let (_, ratios) = find_parts(&board);
+        let (_, ratios) = process_board(&board);
 
         // Test ratios
         assert_eq!(ratios.len(), 2);

@@ -42,7 +42,7 @@ fn valid_game(description: &str, power: bool) -> i32 {
     }
 
     if power { return max_red * max_green * max_blue; } 
-    return id;
+    id
 }
 
 pub fn solve(input_directory: &str, file_name: &str, power: bool) -> io::Result<()> {
