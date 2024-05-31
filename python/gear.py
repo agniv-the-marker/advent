@@ -4,7 +4,7 @@ https://adventofcode.com/2023/day/3
 
 from collections import defaultdict as ddict
 
-def find_parts(board, gears=True):
+def find_parts(board):
     """
     Finds and returns the parts and gear ratios in a given board.
 
@@ -61,9 +61,7 @@ def find_parts(board, gears=True):
                         ratios[(i + y - 1, j + x - 1)].append(int(number))
             j += length
             length = 0
-    if not gears:
-        return parts
-    return {k: v for k, v in ratios.items() if len(v) == 2}
+    return parts, {k: v for k, v in ratios.items() if len(v) == 2}
 
 if __name__ == "__main__":
     PART_SUM = 0
@@ -71,8 +69,9 @@ if __name__ == "__main__":
 
     with open("../input/gear.txt", encoding='utf-8') as f:
         data = f.readlines()
-        PART_SUM = sum(find_parts(data, False).values())
-        GEAR_SUM = sum(v[0] * v[1] for (_, v) in find_parts(data, True).items())
+        total_parts, total_ratios = find_parts(data)
+        PART_SUM = sum(total_parts.values())
+        GEAR_SUM = sum(v[0] * v[1] for (_, v) in total_ratios.items())
 
     print(f'task 1: {PART_SUM}')
     print(f'task 2: {GEAR_SUM}')

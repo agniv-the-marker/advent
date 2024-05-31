@@ -48,7 +48,12 @@ def get_first_and_last_digit(sequence, alpha=False):
                     if first_digit is None:
                         first_digit = value
                     last_digit = value
-                    break
+
+    if not first_digit:
+        first_digit = ''
+    if not last_digit:
+        last_digit = ''
+
     return int(first_digit + last_digit)
 
 if __name__ == "__main__":

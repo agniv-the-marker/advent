@@ -1,6 +1,7 @@
 mod trebuchet;
 mod conundrum;
 mod gear;
+mod scratchcard;
 
 const INPUT_DIRECTORY: &str = "../input/";
 
@@ -19,5 +20,9 @@ fn main() {
 
     println!("Solving gear ratios");
     gear::solve(INPUT_DIRECTORY, "gear.txt").unwrap();
-    // println!();
+    println!();
+
+    println!("Solving scratchcard");
+    scratchcard::solve(INPUT_DIRECTORY, "scratchcard.txt").unwrap();
+    println!();
 }
